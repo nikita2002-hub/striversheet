@@ -1,0 +1,21 @@
+class Solution(object):
+    def generate(self, numRows):
+        """
+        :type numRows: int
+        :rtype: List[List[int]]
+        """
+        ele=[]
+        to=[]
+        for i in range(numRows+1):
+            ele=[]
+            for j in range(i):
+                if j==0 or j==i-1:
+                    ele.append(1)
+                else:
+                    q=[]
+                    q=to[i-1]
+                    a=q[j-1]+q[j]
+                    ele.append(a)
+            to.append(ele)
+        to=to[1:]
+        return to
