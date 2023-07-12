@@ -1,0 +1,20 @@
+
+class Solution:
+    def JobScheduling(self, Jobs, n):
+        c = 0
+        ans = 0
+        cnt = 0
+
+        j = [0] * (n + 1)
+        Jobs.sort(key=lambda x: x.profit, reverse=True)
+
+        for i in range(len(Jobs)):
+            # Find an empty slot starting from the deadline
+            for slot in range(Jobs[i].deadline, 0, -1):
+                if j[slot] == 0:
+                    j[slot] = 1
+                    ans += Jobs[i].profit
+                    cnt += 1
+                    break
+
+        return cnt, ans
