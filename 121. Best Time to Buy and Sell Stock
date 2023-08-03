@@ -1,0 +1,21 @@
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        pro=0
+        buy=min(prices)
+        buyi=prices.index(buy)
+        
+            
+        for i in range(len(prices)):
+            for j in range(i,len(prices)):
+                a=prices[i]-prices[j]
+                if(a<0):
+                    if(abs(a)>pro):
+                        pro=abs(a)
+                else:
+                    continue
+        return pro
+
