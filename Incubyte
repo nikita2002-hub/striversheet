@@ -1,0 +1,152 @@
+class Chandrayaan3:
+    def __init__(self, x, y, z, direction):
+        self.x = x
+        self.y = y
+        self.z = z
+        self.direction = direction
+
+    def move(self, command):
+        if command == 'f':
+            if self.direction == 'N':
+                self.y += 1
+            elif self.direction == 'S':
+                self.y -= 1
+            elif self.direction == 'E':
+                self.x += 1
+            elif self.direction == 'W':
+                self.x -= 1
+            elif self.direction == 'Up':
+                self.z += 1
+            elif self.direction == 'Down':
+                self.z -= 1
+        elif command == 'b':
+            if self.direction == 'N':
+                self.y -= 1
+            elif self.direction == 'S':
+                self.y += 1
+            elif self.direction == 'E':
+                self.x -= 1
+            elif self.direction == 'W':
+                self.x += 1
+            elif self.direction == 'Up':
+                self.z -= 1
+            elif self.direction == 'Down':
+                self.z += 1
+
+    def turn(self, command):
+        if command == 'l':
+            if self.direction == 'N':
+                self.direction = 'W'
+            elif self.direction == 'S':
+                self.direction = 'E'
+            elif self.direction == 'E':
+                self.direction = 'N'
+            elif self.direction == 'W':
+                self.direction = 'S'
+        elif command == 'r':
+            if self.direction == 'N':
+                self.direction = 'E'
+            elif self.direction == 'S':
+                self.direction = 'W'
+            elif self.direction == 'E':
+                self.direction = 'S'
+            elif self.direction == 'W':
+                self.direction = 'N'
+
+    def turn_up_down(self, command):
+        if command == 'u':
+            if self.direction != 'Up':
+                self.direction = 'Up'
+        elif command == 'd':
+            if self.direction != 'Down':
+                self.direction = 'Down'
+
+    def execute_commands(self, commands):
+        for command in commands:
+            if command in ['f', 'b']:
+                self.move(command)
+            elif command in ['l', 'r']:
+                self.turn(command)
+            elif command in ['u', 'd']:
+                self.turn_up_down(command)
+
+    def get_position(self):
+        return (self.x, self.y, self.z)
+
+    def get_direction(self):
+        return self.direction
+
+
+
+# Input from the user
+x, y, z = map(int, input("Enter initial position (x y z): ").split())
+initial_direction = input("Enter initial direction (N, S, E, W, Up, Down): ")
+commands = input("Enter commands (e.g., f, r, u, b, l): ").split()
+
+chandrayaan3 = Chandrayaan3(x, y, z, initial_direction)
+chandrayaan3.execute_commands(commands)
+
+final_position = chandrayaan3.get_position()
+final_direction = chandrayaan3.get_direction()
+
+print("Final Position:", final_position)
+print("Final Direction:", final_direction)
+
+
+
+Test Cases:
+
+
+Input:
+
+Initial position: 0 0 0
+Initial direction: N
+Commands: f
+Expected Output:
+
+Final Position: (0, 1, 0)
+Final Direction: N
+
+
+Input:
+
+Initial position: 1 1 1
+Initial direction: E
+Commands: l b
+Expected Output:
+
+Final Position: (0, 1, 1)
+Final Direction: N
+
+
+Input:
+
+Initial position: 2 2 2
+Initial direction: Up
+Commands: u
+Expected Output:
+
+Final Position: (2, 2, 3)
+Final Direction: Up
+
+
+Input:
+
+Initial position: 0 0 0
+Initial direction: N
+Commands: f r u f b l d
+Expected Output:
+
+Final Position: (1, 0, 1)
+Final Direction: Down
+
+
+Input:
+
+Initial position: 3 3 3
+Initial direction: W
+Commands: b r
+Expected Output:
+
+Final Position: (4, 3, 3)
+Final Direction: N
